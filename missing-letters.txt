@@ -1,0 +1,20 @@
+// missing letters free code camp 
+
+function fearNotLetter(str) {
+  
+  var code ="abcdefghijklmnopqrstuvwxyz";
+  code=code.split("");
+  str=str.split("");
+  
+  if(str[0]!='a'){
+    return undefined;    
+  }
+  
+  for(var i = 0 ; i < str.length ; i++){
+    if(str[i]!=code[i]){
+      return code[i];
+    }
+  }
+  
+ return undefined;
+}
