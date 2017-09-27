@@ -1,0 +1,33 @@
+// free code camp 
+
+function uniteUnique(arr) {
+ 
+  var code = [] ;
+  var here = [] ;
+  var finalCode = [] ;
+ 
+  for(var i = 0 ; i<arguments.length; i++){
+     here.push(arguments[i]);  
+  }
+ 
+  for (var j = 0 ; j < here.length;j++){
+    for(var k = 0 ; k < here[j].length ; k++){
+      code.push(here[j][k]);
+    }   
+  }
+  
+  finalCode = arguments[0] ;
+  
+  for (var x = 0 ; x < code.length ; x++){
+    if(finalCode.indexOf(code[x]) === -1){
+      finalCode.push(code[x]);
+    }
+  }
+  
+ 
+ 
+  
+  return finalCode;
+}
+ 
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);

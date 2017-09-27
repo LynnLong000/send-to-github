@@ -1,0 +1,12 @@
+// refactor code started with a long amount of arrays 
+
+
+function reverseString(str) {
+  /*  would like to know why this doesn't work 
+  str.split("");
+  str.reverse();
+  str.join("");
+  return str;
+  */
+return str.split("").reverse ().join("");
+}

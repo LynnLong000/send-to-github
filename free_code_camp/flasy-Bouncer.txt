@@ -1,0 +1,5 @@
+// Falsy bouncer .... refeactor ... free code camp 
+
+function bouncer(arr) {
+  return arr.filter(Boolean);
+}
