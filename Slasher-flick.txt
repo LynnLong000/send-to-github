@@ -1,8 +1,0 @@
-// slasher in free code camp
-// this was a simple one lol
-
-function slasher(arr, howMany) {
-  // it doesn't always pay to be first
-  return arr.slice(howMany);
-}
-
