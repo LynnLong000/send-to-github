@@ -13,6 +13,10 @@ http.createServer(function(request, response) {
   response.write("Hello, this is Lynn");
   response.end();
 }).listen(8080);
+
+1.8 
+you can rewrite  so it says response.end('hello, this is Lynn');
+
 */
 /* 1.5 Read File in server 
 var http = require('http');
