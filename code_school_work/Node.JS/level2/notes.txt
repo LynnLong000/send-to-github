@@ -1,0 +1,35 @@
+// events level 2 
+
+//events in DOM  trigger events you can listen for those events
+
+// The Dom ( click , submit,hover ) 
+
+// example code 
+$('P').on("click", function(){....});
+
+
+Many objects in NODE emit events
+
+net.Server(Event Emitter ) --> request (event)
+
+fs.readStream(event Emitter ) --> data (event ) 
+
+var EventEmitter = require('events').EventEmitter;
+
+var logger = new EventEmitter();  // error warn info
+
+logger.on('error', function(message){
+    console.log('ERR: '+ message);
+});
+
+logger.emit('error','Spilled Milk');
+
+logger.emit('error','Eggs Cracked');
+
+
+
+http.createServer(function(request,response){..});
+
+var server = http.createServer();
+server.on('request',function(request, response){...});
+
