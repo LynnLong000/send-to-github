@@ -1,0 +1,36 @@
+// java hacker rank day 10
+
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    
+    static int binary(int n) {
+        // Complete this function
+        int ones = 0, max = 0; 
+        while (n > 0) { 
+            if (n % 2 == 1) {
+                ones++; 
+                if (ones > max) { 
+                    max = ones; 
+                }
+            } else {
+                ones = 0;
+            }
+            
+            n = n / 2; 
+        }
+        return max; 
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int result = binary(n);
+        System.out.println(result);
+
+    }
+}
+
+
