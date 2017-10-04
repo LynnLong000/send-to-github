@@ -1,0 +1,98 @@
+// level 6.1 notes 
+$ npm install --save socket.io
+--app.js 
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(client) {
+    console.log('Client connected...');
+});
+
+app.get('/', function (req, res) {
+ res.sendFile(__dirname + '/index.html');
+}];
+
+server.listen(8080);
+
+-- in html world
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io.connect('http://localhost:8080');
+</script>
+
+///////////////////////////////////////////////////
+
+// sending messages to client 
+--app.js 
+io.on('connection', function(client) {
+    console.log('Client connected...');
+    client.emit('messages', { hello: 'world' });
+});
+
+-- in html world
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io.connect('http://localhost:8080');
+socket.on ('message,function(data){
+    alert(data.hello);
+});
+</script>
+////////////////////////////////////////////////////////////////
+
+//sending message to server 
+--app.js 
+io.on('connection', function(client) {
+    console.log('Client connected...');
+    client.emit('messages', { hello: 'world' });
+});
+
+-- in html world
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io.connect('http://localhost:8080');
+$('#chat_form').submit(function(e){
+    var message = $('#chat_input').val();
+    socket.emit('messages', message);
+});
+</script>
+////////////////////////////////////////////////////////////////////
+
+//broadcasting messages // broadcast is a function                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+-- app.js
+
+io.on('connection', function(client) {
+    client.on('messages', function (data) {
+        client.broadcast.emit("messages", data);
+    });   
+});
+
+-- html world 
+<script>
+...
+socket.on('messages', function(data) { insertMessage(data) });
+</script>
+/////////////////////////////////////////////////////////////
+saving data on the sockets  // usernames
+
+--app.js
+io.on('connection', function(client) {
+    client.on('join', function(name) {
+        client.nickname = name;
+    });
+});
+
+client.on('messages', function(data){
+    var nickname = client.nickname;
+    
+    client.broadcast.emit("message", nickname + ": " + message);
+    client.emit("messages", nickname + ": " + message);
+});
+
