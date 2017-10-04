@@ -1,16 +1,11 @@
-// 3.3 file Piping 
-
+// 3.4 fixing Piping 
 var fs = require('fs');
 
 var file = fs.createReadStream('fruits.txt');
+var destFile = fs.createWriteStream('destination.txt');
 
-file.pipe(process.stdout);
+file.pipe(destFile,{end:false});
 
-  /*
-file.on('readable', function() {
-  var chunk;
-  while(null !== (chunk = file.read())){
-    console.log(chunk.toString());
-  }
+file.on('end',function(){
+    destFile.end('Finished!');
 });
- */
