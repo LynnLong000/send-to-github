@@ -1,0 +1,130 @@
+// 4.1 modules 
+
+modules are like packages in JS
+
+var http = require ('http') --> http.js module
+var fs = require ('fs') --> fs.js module
+////////////////////////////////////////////////////////
+creating module
+
+// custom_hello.js 
+var hello = function (){
+    console.log("hello!");
+}
+
+module.exports = hello;
+
+//app.js
+
+var hello = require('./custom_hello');
+
+hello();
+
+// custom_goodbye.js  in a different way ( set multiple )
+exports.goodbye = function (){
+    console.log("bye!");
+}
+
+module.exports = hello;
+
+//app.js
+var hello = require('./custom_hello');
+var gb = require('./custom_goodbye')
+hello();
+gb.goodbye();
+// set the goodbye method in one line 
+require('./custom_goodbye').goodbye(); // ifonly need to call once
+/////////////////////////////////////////////////////////////
+//my_modules
+var foo = function () { ... } 
+var bar = function () { ... } 
+var baz = function () { ... }  // private 
+
+exports.foo = foo
+exports.bar = bar
+
+//app.js
+var myMod = require('./my_modules');
+myMod.foo
+myMod.bar
+
+///////////////////////////////////////////////////////////////////////
+
+/// making http requests
+
+var http = require('http');
+var message = 'Here's looking at you, kid';
+var options = {
+    host: 'localhost',
+    port: 8080,
+    path:'/',
+    method:'POST'
+}
+
+var request = http.request(options, function(response){
+    response.on('data', function(data){
+        console.log(data); // logs response body 
+    });
+});   
+request.write(message);  // begins request
+request.end(); //finishes request
+
+/// this can turn into  this below 
+
+//module make_request
+var http = require('http');
+
+var makeRequest = function(message) { 
+    var options = {
+        host: 'localhost',
+        port: 8080,
+        path:'/',
+        method:'POST'
+    }
+
+    var request = http.request(options, function(response){
+        response.on('data', function(data){
+            console.log(data); // logs response body 
+        });
+    });   
+    request.write(message);  // begins request
+    request.end(); //finishes request
+}
+makeRequest("Here's looking at you, kid."); // this is not here use app.js
+
+module.exports = makeRequest;
+
+//app.js
+
+var makeRequest = require('./make_request.js')
+
+makeRequest('Here's looking at you, kid');
+
+./ same directory
+../ parent directory
+direct path starting ith / 
+
+
+NPM packages and module //npmjs.org
+
+// install
+npm install request
+
+npm install coffee-script -g ( global)
+// still need to do it locally
+
+/////////////////////////////////////////////
+my_app/package.json
+
+{
+    "name": "My App",
+    "version": "1",
+    "dependencies": {
+        "connect": "1.8.7"
+    }
+}
+
+
+"connect": "1.8.7"    major:1 , Minor : 8 , Patch:7 
+
+"connect": "~1.8.7" best solution 
