@@ -1,4 +1,4 @@
-// 5.3 route params
+// 5.3 route params  updating for 5.4
 
 var express = require('express');
 var app = express();
@@ -11,8 +11,11 @@ var quotes = {
 };
 
 app.get('/quotes/:name',function(req,res){
-  res.end(quotes[req.params.name]);
+    var quote = quotes[req.params.name];
+    res.render('quote.ejs',{
+        name:req.params.name,
+        quote:quote
+  }); 
 });
-
 
 app.listen(8080);
