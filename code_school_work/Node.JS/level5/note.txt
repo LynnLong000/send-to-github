@@ -1,0 +1,58 @@
+// notes 5.1
+
+“Sinatra inspired web development framework for Node.js --
+insanely fast, flexible, and simple”
+
+npm install --save express
+var express = require('express');
+
+var app - express ();
+
+app.get('/', function(request, response) {
+ response.sendFile(__dirname + "/index.html");
+});
+app.listen(8080);
+ sendFile --- > $ curl http://localhost:8080/    > 200 OK
+'/' --> root route
+__dirname -- > current directory // two underscore
+//////////////////////////////////////////////////////////////
+
+var request = require('request');
+var url = require('url');
+
+app.get('/tweets/:username', function(req, response) {
+
+    var username = req.params.username;
+ 
+    options = {
+        protocol: "http:",
+        host: 'api.twitter.com',
+        pathname: '/1/statuses/user_timeline.json',
+        query: { screen_name: username, count: 10}
+    }
+    var twitterUrl = url.format(options);
+    request(twitterUrl).pipe(response);
+
+// twitter api probably will not work...FYI    
+//////////////////////////////////////////////////////////////////////////
+npm install --save ejs  embedded javascript
+
+//app.js 
+
+app.get('/tweets/:username', function(req, response) {
+    ...
+    request(url, function(err, res, body) {
+        var tweets = JSON.parse(body);
+        response.locals = {tweets:tweets, name: username};
+        response.render('tweets.ejs');
+     });
+});
+// views/tweets.ejs
+
+
+<h1>Tweets for @<%= name %></h1>
+<ul>
+ <% tweets.forEach(function(tweet){ %>
+ <li><%= tweet.text %></li>
+ <% }); %>
+</ul>
