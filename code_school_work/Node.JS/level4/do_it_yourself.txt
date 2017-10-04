@@ -1,0 +1,8 @@
+4.5 installing local modules
+
+$ npm install underscore
+
+4.6 installing global modules 
+
+$ npm install coffee-script -g 
+
