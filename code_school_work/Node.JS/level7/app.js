@@ -1,6 +1,7 @@
 // 7.2 simple redis commmands
 // 7.3 get a key 
 // 7.4 working with list 1
+// 7.5 working with list 2 
 
 var redis = require('redis');
 var client = redis.createClient();
