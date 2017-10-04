@@ -1,4 +1,4 @@
-// 5.5 url building 
+// 5.5 url building   updaing for 5.6 doing the requests
 var url = require('url');
 
 var options = {
@@ -12,4 +12,9 @@ var options = {
 };
 
 var searchURL = url.format(options);
-console.log(searchURL);
+//console.log(searchURL);
+var request = require('request');
+
+request(searchURL,function(err,response,body){
+  console.log(body);
+});
