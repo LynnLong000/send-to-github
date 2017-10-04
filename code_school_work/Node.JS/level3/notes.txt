@@ -1,0 +1,99 @@
+STREAMS
+
+streams are like channels 
+
+readable and writeable  sometimes both 
+
+http.createServer(function(request,response){...});
+
+request --> readable stream  | response --> writable stream
+
+http.createServer(function(request, response) {
+  response.writeHead(200);
+  response.write(" <p> Dog is running.</p>");
+  setTimeout(function(){
+  response.write("<p>Dog is done.</p>");
+  response.end();
+}).listen(8080);
+
+
+// our browser receives Dog is running...automactcallly 
+
+stream kept open , 5 sec later  dog is done. close 
+
+
+Readable Stream (eventEmitter) --> emit --> events ( readable end) 
+
+/////////////////////////////////////////////////////////
+http.createServer(function(request, response) {
+    response.writeHead(200);
+    request.on('readable', function() { // request.pipe(response);
+        var chunk = null;
+        while (null !== (chunk = request.read())) {
+            response.write(chunk);
+        }
+    });
+    request.on('end', function() { //request.pipe(response) 
+        response.end();
+    });
+}).listen(8080)
+
+// code can be change to 
+
+http.createServer(function(request, response) {
+    response.writeHead(200);
+    request.pipe(response);
+}).listen(8080)
+
+// curl -d 'hello' http://localhost:8080
+
+File system stable 
+
+stream unstable
+/////////////////////////////////////////////////////////////////
+reading and writing a file 
+ var fs = require('fs') ; // require files system module 
+ 
+ var file = fs.createReadStream("readme.md");
+ var newFIle = fs.creatgeWriteStream("readme_copy.md");
+ 
+ file.pipe(newFIle)
+ 
+ /////////////////////////////////////////////////////////
+ 
+ upload a file 
+ 
+ var fs = require('fs')
+ var http = require('http')
+ 
+ http.createServer(function(request,response){
+    var newFile = fs.createWriteStream("read_copy.md");
+    request.pipe(newFile);
+    
+    request.on('end',function() {
+        response.end('uploaded!');
+    });    
+}).listen(8080);
+
+// curl --upload-file readme.md http://localhost:8080
+// file uploading 
+
+
+ http.createServer(function(request,response){
+    var newFile = fs.createWriteStream("read_copy.md");
+    var fileBytes = request.headers['content-length'];
+    var uploadedBytes = 0;
+    
+    request.on('readable',function(){
+        var chunk = null;
+        while(null !== (chunk=request.read())){
+            uploadedBytes += chuck.length;
+            var progress = (uploadedBytes / fileBytes) * 100;
+            response.write("progress: " + parseInt(progress,10) + "%\n");
+        }
+    });
+    
+    request.pipe(newFile);
+    ...
+}).listen(8080);
+
