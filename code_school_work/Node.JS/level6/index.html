@@ -1,7 +1,18 @@
 <!-- 6.3 client socket.io  Set up -->
+<!-- 6.4 listening for question  Set up -->
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="/insertQuestion.js"></script>
+
 <script>
-  // use the socket.io server to connect to localhost:8080 here  
   var server = io.connect('http://localhost:8080');
+
+  // Insert code here
+  server.on('question',function(question){
+    insertQuestion(question);
+  });     
+  
+  server.on('answer',function(question,answer){
+      answerQuestion(question,answer); 
+  });
 </script>
