@@ -1,0 +1,109 @@
+2.1  removing and modifying Documents
+
+db.potions.remove({"name":"name"})
+
+you can remove by  fields
+
+db.potions.update({"name":"name"},{$set:{"price":3.99}})
+
+///////////////////////////////////////////////////////////////////////
+
+2.2 oblitero wand    remove the wand name 
+
+> db.wands.remove({"name": "Doom Bringer"})
+
+///////////////////////////////////////////////////////////////////////
+
+2.3  oblitero wand II
+> db.wands.remove({"powers":"Death"})
+
+///////////////////////////////////////////////////////////////////////
+
+2.4 wand Reductions -- change the price 
+
+> db.wands.update({"name":"Devotion Shift"},{$set:{"price":5.99}})
+
+///////////////////////////////////////////////////////////////////////
+
+2.5 magical Regulations -- update all wands with the parameters 
+
+db.wands.update(
+  {"powers":"Fire"},
+  {"$inc": {"level_required": 2}},
+  {"multi":true}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.6 user chronicles  -- updating the count by one if not there creating it 
+
+db.logs.update(
+  {"name": "Dream Bender"},
+  {"$inc": {"count":1}},
+  {"upsert":true}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.7 advanced Modifications 
+db.potions.update({when empty goes for all potions},{"$unset":{"color":""}},
+{"multi": true})
+
+doucmentation is the best friend
+
+///////////////////////////////////////////////////////////////////////
+2.8 smelly wand remove smell field 
+
+db.wands.update(
+  {},
+  {"$unset": {"smell":""}},
+  {"multi": true}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.9 disgruntled wand makers  change creator to maker 
+
+db.wands.update(
+  {},
+  {"$rename": {"creator":"maker"}},
+  {"multi": true}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.10 Abracadabra Array Alterations  updating one part
+
+db.wands.update(
+  {"name": "Dream Bender"},
+  {"$set": {"powers.0": "Fire Deflection"}}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.11  Abracadabra Array Alterations II   updating all wands with parameters
+
+db.wands.update(
+  {"powers": "Love"},
+  {"$set":{"powers.$":"Love Burst"}},
+  {"multi": true}
+)
+///////////////////////////////////////////////////////////////////////
+2.12  Abracadabra Array Alterations III updating a category 
+
+db.wands.update(
+  {"name": "Dream Bender"},
+  {"$push":{"powers": "Spell Casting"}}
+)
+
+///////////////////////////////////////////////////////////////////////
+2.13 Abracadabra Array Alterations IV   add category to all wands
+
+db.wands.update(
+  {},
+  {"$addToSet":{"powers": "Spell Casting"}},
+  {"multi": true}
+)
+///////////////////////////////////////////////////////////////////////
+2.14  sensible stats   mulply the melee by 10 
+
+db.wands.update(
+  {},
+  {"$mul":{"damage.melee":10}},
+  {multi: true}
+)
