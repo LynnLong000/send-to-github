@@ -1,0 +1,64 @@
+4.1 data modeling
+video 
+///////////////////////////////////////////////////////////////////////
+4.2 marvelous merging
+When we take the data from one document and place it inside another one, that's called an 
+ *embedded* document.
+ 
+///////////////////////////////////////////////////////////////////////
+4.3 related Realm 
+If we take a unique value like an _id from one document and store it as a value within a related document, we have just created a  * referenced *
+ document.
+///////////////////////////////////////////////////////////////////////
+4.4  lookout incantations
+For what reason might we want to consider referencing maker information instead of embedding it within each wand?
+* duplicate Data
+
+///////////////////////////////////////////////////////////////////////
+4.5 Quantifying Queries
+
+What's the minimum number of queries we'd have to write in order to retrieve a document and its referenced data?
+*2*
+
+///////////////////////////////////////////////////////////////////////
+4.6 chalice of choices
+
+Which modeling option would give us all the data we need with a single query, support for atomic writes, and is great for data that is strongly related?
+*embedding*
+
+///////////////////////////////////////////////////////////////////////
+4.7 Cauldrons of considerations
+
+Which data modeling decision doesn't have default support for atomic writes across multiple documents and should be utilized with care?
+*Referenced*
+///////////////////////////////////////////////////////////////////////
+4.8 video Data Modeling Decisions
+
+embedded -- single query
+
+refernce --  multiple more than 100
+///////////////////////////////////////////////////////////////////////
+4.9 casting choices
+ general, what's the best option to first consider for modeling your related data?
+
+Embedding
+///////////////////////////////////////////////////////////////////////
+4.10 Unique Users
+Which data modeling option would be the best fit for storing users and their addresses when we know that the data is used together often, won't be changing regularly, and each user will only be storing a few addresses?
+
+Embedding
+///////////////////////////////////////////////////////////////////////
+4.11 Charming Cars 
+We'd like to store information about cars, and each car can have a few hundred parts. Most of the time, we won't be needing specific information about each part. Which data modeling route should we take?
+*Referencing* 
+
+///////////////////////////////////////////////////////////////////////
+4.12Charming Changes 
+
+Which modeling route is best when we have data that is constantly changing and will help prevent data inconsistencies from arising?
+*Referencing* 
+///////////////////////////////////////////////////////////////////////
+4.13 Bewitched Access
+Which data modeling route allows us to access our data independently instead of having to use something like dot notation to get information?
+
+*Referencing* 
