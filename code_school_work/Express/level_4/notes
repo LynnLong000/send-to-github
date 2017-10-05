@@ -1,0 +1,16 @@
+// POST & DELETE 
+4.1 posting blocks 
+new form and post route
+
+npm install body parser
+/////////////////////////////////
+4.4 delete blocks ( video 
+
+///////////////////////////////////////////////////////////////////////////////
+
+4.5 
+
+What would the response body be set to on a DELETE request to /cities/DoesNotExist ? Here's the link to the sendStatus function source code if you need to take a look
+
+
+404
