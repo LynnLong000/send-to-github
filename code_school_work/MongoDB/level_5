@@ -1,0 +1,84 @@
+5.1 common aggregations
+video
+///////////////////////////////////////////////////////////////////////
+5.2 many makers 
+
+db.wands.aggregate([{$group: {"_id": "$maker"}}])
+
+///////////////////////////////////////////////////////////////////////
+5.3 detecting Damage 
+
+db.wands.aggregate([{$group: {"_id": "$damage.magic","wand_count": {"$sum": 1}}}])
+
+///////////////////////////////////////////////////////////////////////
+5.4 Royal Connoisseurs
+
+db.wands.aggregate([{
+  $group: 
+  {"_id":"$maker",
+   "total_cost": {"$sum": "$price"}}
+}])
+
+///////////////////////////////////////////////////////////////////////
+5.5 Mischievous Makers
+
+db.wands.aggregate([
+  {"$group": {
+    "_id": "$level_required",
+    "price_average": {"$avg": "$price"}
+  }}
+])
+
+///////////////////////////////////////////////////////////////////////
+5.6 Glimmering Guide
+
+db.wands.aggregate([{
+  "$group":{
+    "_id": "$maker",
+    "total_wands": {"$sum": 1},
+    "max_magic": {"$max": "$damage.magic"},
+    "lowest_price": {"$min": "$price"}
+  }
+}])
+///////////////////////////////////////////////////////////////////////
+5.7 the aggregation pipeline  video
+
+///////////////////////////////////////////////////////////////////////
+5.8 lower level casting 
+
+db.wands.aggregate([{
+  "$match": {"powers": "Air Bolt"}
+},{
+  "$group": {"_id": "$maker",
+            "lowest_level": {"$min": "$level_required"}}
+}])
+
+
+///////////////////////////////////////////////////////////////////////
+5.9 budget casting 
+
+db.wands.aggregate([{
+  $match: {"price": {"$lt": 50}}
+},{
+  $group: {"_id": "$maker",
+          "average_magic": {"$avg": "$damage.magic"}}
+},{
+  $match: {"average_magic": {"$gt": 40}}
+}])
+
+
+///////////////////////////////////////////////////////////////////////
+5.10  Clairvoyant Decisions
+
+db.wands.aggregate([{
+  $match: {"level_required": {"$lte": 5}}
+},{
+  $project: {"_id": false, "maker": true, "damage.magic": true}
+},{
+  $group: {"_id": "$maker",
+          "max_damage": {"$max": "$damage.magic"}}
+},{
+  $sort: {"max_damage": -1}
+},{
+  $limit: 3
+}])
