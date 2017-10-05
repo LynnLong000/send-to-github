@@ -1,0 +1,86 @@
+3.1 query Operators
+watching video 
+
+common comparisons  $ge greater than , $lt less than,  
+$gte greather than or equal to ,$lte less than or equal to 
+$ne not equal to
+
+///////////////////////////////////////////////////////////////////////
+3.2 picky preferences   exact match
+db.wands.find(
+{
+  "maker": "Moonsap",
+  "level_required": 5
+}  
+)
+
+///////////////////////////////////////////////////////////////////////
+3.3 Supernatural stats    less than or equal 
+db.wands.find(
+  {
+  "level_required":{ "$lte": 5}
+}  
+)
+
+///////////////////////////////////////////////////////////////////////
+3.4 All you need is love do not include something
+db.wands.find(
+  {"powers":{"$ne":"Love Burst"}}
+)
+
+///////////////////////////////////////////////////////////////////////
+3.5 Marvelously mighty melee using two comparisons
+
+db.wands.find(
+  {
+    "damage.melee":{"$gte": 30,"$lte": 40}
+  }
+)
+
+///////////////////////////////////////////////////////////////////////
+3.6 Bananas for wands   --find by parameters atleast one match 
+db.wands.find(
+  {"lengths": {"$elemMatch": {"$gte": 2.5,"$lt": 3}}}
+)
+
+///////////////////////////////////////////////////////////////////////
+3.7 Merlin's Mythical Madness 
+
+db.wands.find(
+  {
+    "maker": {"$ne": "Foxmond"},
+    "level_required": {"$lte": 75},
+    "price": {"$lt": 50},
+    "lengths": {"$elemMatch": {"$gte":3,"$lte": 4}}
+  }
+)
+
+///////////////////////////////////////////////////////////////////////
+3.8 customizing Queries video 
+
+///////////////////////////////////////////////////////////////////////
+3.9 Precise
+db.wands.find(
+  {},
+  {"name":true}).sort({"name":1})
+  
+///////////////////////////////////////////////////////////////////////
+3.10 The Realm of requirements
+
+db.wands.find(
+  {}, 
+  {"_id": false,"name": true,"powers": true})
+
+///////////////////////////////////////////////////////////////////////
+3.11casting the ccount 
+
+db.wands.find({"level_required": 2}).count()
+
+///////////////////////////////////////////////////////////////////////
+3.12 the cursor's crystall ball 
+db.wands.find({}).skip(0).limit(8)
+
+///////////////////////////////////////////////////////////////////////
+3.13 fantastical findings
+db.wands.find({}).sort({"price":-1}).limit(3)
+
