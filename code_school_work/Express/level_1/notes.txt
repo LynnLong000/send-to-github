@@ -1,0 +1,18 @@
+npm = node package manage 
+
+npm install express  (express@x.x.x) 
+
+// needed 
+var express = require('express')
+var app = express ()
+
+app.get('/',function(req,res){
+    res.send('hello');
+});
+
+curl request local http
+
+////////////////////////////
+after that we typed  1.2 installing express
+
+" npm install express@4.9 to install a specific one with the highiest patch

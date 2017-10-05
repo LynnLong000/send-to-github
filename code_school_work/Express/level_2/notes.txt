@@ -1,0 +1,60 @@
+level 2
+
+
+middle ware are the building blocks of express
+
+app.use(express.static ('public ')
+
+
+
+functions executed sequently that access request and response 
+
+
+next function must be in the middle ware
+
+flow stops once it has been send back 
+
+////////////////////////////////////////////////////////.
+
+2.2 mounting middle ware  app.use(logger)
+
+////////////////////////////////////////////////////////////
+
+2.3 default middleware    express-static with express 4    
+
+///////////////////////////////////////////////////////////////
+
+2.8  adding logger app.use(logger)
+
+var express = require('express');
+var app = express();
+
+var logger = require('./logger');
+
+//TODO: mount middleware
+
+app.listen(3000);
+
+////////////////////////////////////////////////////////////////////
+
+2.10 building 
+
+var express = require('express');
+var app = express();
+
+app.use(function(request, response, next){
+  if (request.path === "/cities"){
+    next();
+  } else {
+    response.status(404).json("Path requested does not exist");
+  }
+});
+
+app.get('/cities', function(request, response){
+  var cities = ['Caspiana', 'Indigo', 'Paradise'];
+  response.json(cities);
+});
+
+app.listen(3000);
+
+404 response with "Path requested does not exist")
