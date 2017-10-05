@@ -1,0 +1,97 @@
+//  mondo db level one 
+1.1 video 
+open source no sql database  // 
+
+Document - oriented
+
+great for unstructured dad, especially when youhave a lot of it 
+
+
+mongo stands for humgeous
+
+
+SQL  DB table  row 
+
+mongo DB collection document 
+
+dynamic shema in mongo 
+
+document are just json object
+
+
+type db to show you what you in 
+
+///////////////////////////////////////////////////////////////////////////
+1.2 Dispelling the Database
+
+> Use wandRecorder 
+
+/////////////////////////////////////////////////////////////////////////
+1.3 conjuring Collections   -- find all the documents in the db wands
+
+> db.wands.find()
+
+//////////////////////////////////////////////////////////////////////////////
+1.4 waving the wandRecorder   --  adding the the collection
+> db.wands.insert({"name": "Dream Bender", "creator": "Foxmond"})
+
+//////////////////////////////////////////////////////////////////////////////
+1.5 Queries and data types ( video ) 
+
+Bson is like json 
+
+//////////////////////////////////////////////////////////////////////////////////
+1.6 Hey have you hears about wands  (find in the data base )
+
+>db.wands.find({"name": "Storm Seeker"})
+
+////////////////////////////////////////////////////////////////////////
+
+1.7 expecto mongo wand 
+
+> db.wands.find({"creator": "Moonsap"})
+
+////////////////////////////////////////////////////////////////////////////////
+1.8 wand summoning 
+
+db.wands.insert(
+{
+  "name": "Dream Bender",
+  "creator": "Foxmond",
+  "level_required": 10,
+  "price": 34.9,
+  "powers":["Fire","Love"],
+  "damage":{"magic": 4,"melee": 2}
+}
+)
+
+////////////////////////////////////////////////////////////////////////////////
+1.9 Finding the perfect wand   --  query throught to find a wand with power of fire 
+
+db.wands.find({"powers":"Fire"})
+
+/////////////////////////////////////////////////////////////////////////
+1.10 bad magic   Unique_id code below 
+
+{
+  "_id": ObjectId("1234567"),
+  "name": "Dream Bender",
+  "creator": "Foxmond",
+  "level_required": 10,
+  "price": 34.9,
+  "powers": ["Fire", "Love"],
+  "damage": {"magic": 4, "melee": 2}
+},
+{
+  "_id": ObjectId("1234567"),
+  "name": "Lightbane",
+  "creator": "Elvira",
+  "level_required": 4,
+  "price": 4.2,
+  "powers": ["Light", "Darkness"],
+  "damage": {"magic": 10, "melee": 0}
+}
+
+
+
+
