@@ -1,0 +1,131 @@
+2.1 $scoope (  video )
+/////////////////////////////////////////////////////////////////
+2.2 Scope - a - dope
+
+When using the *controllerAs* syntax, the controller's context (*this*) attaches things to the current *scope* behind the scenes.
+/////////////////////////////////////////////////////////////////
+2.3 inline Controller & $scope
+//change this 
+function() {
+      this.header = 'Note Title';
+      this.description = 'A lovely note description.';
+    },
+    controllerAs: 'card'
+// to this     
+
+function($scope) {
+      $scope.header = 'Note Title';
+      $scope.description = 'A lovely note description.';
+    },
+  // html code is 
+  <div class="card" title="{{header}}">
+  <h2 class="h3">{{header}}</h2>
+  <p>{{description}}</p>
+</div>
+
+/////////////////////////////////////////////////////////////////
+2.4 Outside Controller & $scope
+//change code from
+angular.module('NoteWrangler')
+.controller('NotesIndexController', ['$http', function($http) {
+  var controller = this;
+
+  $http({method: 'GET', url: '/notes'}).success(function(data) {
+    controller.notes = data;
+  });
+}]);
+
+// to this
+angular.module('NoteWrangler')
+.controller('NotesIndexController', ['$http', '$scope' , function($http,$scope) {
+  $http({method: 'GET', url: '/notes'}).success(function(data) {
+    $scope.notes = data;
+  });
+}]);
+
+// for this code
+      templateUrl: 'templates/pages/notes/index.html',
+      controller: 'NotesIndexController',
+      controllerAs: 'notesCtrl' // removed this 
+      
+//  in html   
+<a class="card-notes" ng-repeat="note in notes">
+
+/////////////////////////////////////////////////////////////////
+2.5 Scope the config Object  video
+
+learning to remove bracket 
+/////////////////////////////////////////////////////////////////
+2.6 Default Scope
+By default, directives use their parents' scope
+**TRUE**
+
+/////////////////////////////////////////////////////////////////
+2.7 Setting on Scope 
+
+When setting $scope.title inside a directive using the default scope, we are actually setting a variable named title on the parent $scope
+// code 
+
+angular.module('NoteWrangler', [])
+.directive("nwCard", function() {
+  return {
+    restrict: "E",
+    templateUrl: "templates/directives/nw-card.html",
+    controller: function($scope) {
+      $scope.title = 'Space Llamas';
+    }
+  }
+});
+
+** TRUE ** 
+
+/////////////////////////////////////////////////////////////////
+2.8 A Flexible Card Directive
+// adding 
+
+    scope: {
+      header:"=",
+      description:"="
+    }
+    
+// allow use to change 
+<div class="card" title="{{note.header}}">
+  <h2 class="h3">{{note.header}}</h2>
+  <p>{{note.description}}</p>
+</div>
+
+//to 
+
+<div class="card" title="{{header}}">
+  <h2 class="h3">{{header}}</h2>
+  <p>{{description}}</p>
+</div>
+
+/////////////////////////////////////////////////////////////////
+2.9 making Isolation
+added 
+<nw-card header='note.title' description='note.description'></nw-card>
+
+different html added
+<nw-card header='user.name' description='user.bio'></nw-card>
+
+/////////////////////////////////////////////////////////////////
+2.10  link video 
+/////////////////////////////////////////////////////////////////
+2.11 DOM Manipulation
+Where is the proper place to access the HTML element within a directive?
+** Inside a directive's link function ** 
+
+/////////////////////////////////////////////////////////////////
+2.12 Style the tweeted Note 
+//added code 
+    link: function(scope, element, attrs){
+      /*Add a class of tweeted to the nw-card element for any card that has a tweeted property on its scope.*/
+       if(scope.tweeted){
+         element.addClass("tweeted");
+       }
+    }
+
+/////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////
