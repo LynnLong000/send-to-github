@@ -1,0 +1,192 @@
+4.1 Helping child and parent communicate ( video )
+
+////////////////////////////////////////////////////////////////////////////////////
+4.2  Glorious direvtives for our navigation
+
+angular.module('NoteWrangler')
+.directive('nwNav', function() {
+  return {
+    restrict: 'E',
+    controller: function($scope) {
+      $scope.activeNav = 'Notes';
+      this.getActiveNav = function() {
+        return $scope.activeNav;
+        };
+      this.setActiveNav = function(activeNav) {
+        $scope.activeNav = activeNav;
+        };
+      return this;      
+    }
+  };
+});
+
+////////////////////////////////////////////////////////////////////////////
+4.3 The parent is required 
+
+angular.module('NoteWrangler')
+.directive('nwNavItem', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/directives/nw-nav-item.html',
+    require: "^nwNav",
+    link: function(scope, element, attrs, nwNav) {
+      
+    }    
+  };
+});
+
+////////////////////////////////////////////////////////////////////////////////////
+4.4 Using parent Functionality 
+
+angular.module('NoteWrangler')
+.directive('nwNavItem', function() {
+  return {
+    restrict: 'E',
+    templateUrl: './templates/directives/nw-nav-item.html',
+    require: '^nwNav',
+    link: function(scope, element, attrs, nwNavCtrl) {
+      scope.isActive = function() {
+        return nwNavCtrl.getActiveNav() === scope.name;
+      };
+
+      scope.activate = function() {
+        nwNavCtrl.setActiveNav(scope.name);
+      };
+    },
+        scope: {
+      name: "@"
+    }
+    
+  };
+});
+
+////////////////////////////////////////////////////////////////////////////////////
+4.5 the magic is revealed 
+
+<a class="list-item" ng-href="#/{{name | lowercase}}" ng-click="activate()" ng-class="{'active': isActive()}">{{name}}</a>
+////////////////////////////////////////////////////////////////////////////////////
+4.6 filters 
+ ( video ) 
+ date lowercase uppercase limitp orderby filterfilter 
+////////////////////////////////////////////////////////////////////////////////////
+4.7 filer all the things
+
+<div class="note-wrapper">
+  <div class="note-content">
+    <div class="notes-header">
+      <h1 title="Notes">Tweeted Notes</h1>
+      <input type="search" ng-model="searchTerm"/><label>Search</label>
+    </div>
+
+    <div class="note-wrapper">
+      <a class="card-notes" ng-repeat="note in notes | filter: {tweeted: true}" ng-href="#/notes/{{note.id}}">
+        <div class="card" title="{{note.title}}">
+          <h2 class="h3">{{note.title}}</h2>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+////////////////////////////////////////////////////////////////////////////////////
+4.8 chainging filters 
+
+<div class="note-wrapper">
+  <div class="note-content">
+    <div class="notes-header">
+      <h1 title="Notes">Tweeted Notes</h1>
+      <input type="search" ng-model="searchTerm"/><label>Search</label>
+    </div>
+
+    <div class="note-wrapper">
+      <a class="card-notes" ng-repeat="note in notes | filter: {tweeted: true} | filter: searchTerm" ng-href="#/notes/{{note.id}}">
+        <div class="card" title="{{note.title}}">
+          <h2 class="h3">{{note.title}}</h2>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+////////////////////////////////////////////////////////////////////////////////////
+4.9 A date Filter 
+
+<div class="note-wrapper">
+  <div class="note-content">
+    <div class="notes-header">
+      <h1 title="Notes">Tweeted Notes</h1>
+      <input type="search" ng-model="searchTerm"/><label>Search</label>
+    </div>
+
+    <div class="note-wrapper">
+      <a class="card-notes" ng-repeat="note in notes | filter: {tweeted: true}" ng-href="#/notes/{{note.id}}">
+        <div class="card" title="{{note.title}} {{note.tweetedDate | date: 'MM dd'}}">
+          <h2 class="h3">{{note.title}}</h2>
+          <p>{{ note.tweetedDate | date"'Tweeted on a ' EEEE ' in ' MMMM"}}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+////////////////////////////////////////////////////////////////////////////////////
+4.10 external library  video 
+////////////////////////////////////////////////////////////////////////////////////
+4.11 make it work 
+--js 
+angular.module('NoteWrangler')
+.directive('nwSlabText', function($timeout) {
+  return function(scope, element) {
+    $timeout(function() {
+    element.slabText();
+    });
+  };  
+});
+
+-- html 
+<div class="card" title="{{title}}">
+  <h2 class="h3"nw-slab-text>{{header}}</h2>
+  <p>{{description}}</p>
+</div>
+
+
+////////////////////////////////////////////////////////////////////////////////////
+4.12 a pop over for note description 
+-- 
+
+angular.module('NoteWrangler')
+.directive('popover', function($timeout) {
+  return function(scope, element, attrs) {
+    $timeout(function() {
+      element.popover({ trigger: "hover", content: attrs.popover });
+    });
+    scope.$on('$destroy', function() {
+      element.popover('destroy');
+    });
+  };
+});
+
+
+
+
+--html 
+
+<div class="note-wrapper">
+  <div class="note-content">
+    <div class="notes-header">
+      <h1 title="Notes">Tweeted Notes</h1>
+      <input type="search" ng-model="searchTerm"/><label>Search</label>
+    </div>
+
+    <div class="note-wrapper">
+      <a class="card-notes" ng-repeat=" note in notes | filter : {tweeted:true}">
+
+        <div class="card" popover="{{note.title}} {{note.tweetedDate | date: 'MMM. dd'}}">
+          <h2 class="h3">{{note.title}}</h2>
+          <p>{{note.tweetedDate | date: "'Tweeted on a' EEEE 'in' MMMM"}}</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
