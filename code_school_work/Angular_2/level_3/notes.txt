@@ -1,0 +1,143 @@
+3.1 A service for our data calls 
+Value factory service Provider  constant 
+////////////////////////////////////////////////////////////
+3.4 a service for an outside API  videos
+
+gravatar use email to use photo
+
+hash email address
+
+CryptoJS to hash things
+
+/////////////////////////////////////////////////////////////////
+3.5 A tweetable Service 
+-- one.js file 
+
+angular.module('NoteWrangler')
+.factory( 'Tweetable', function TweetableFactory($http){
+  return function(potentialTweet){
+    return $http({method:"POST", url:'http://gentle-spire-1153.herokuapp.com/tweet', data:{description:potentialTweet}});
+  };
+} );
+
+-- two.js  file 
+angular.module('NoteWrangler')
+.controller('NotesIndexController', ['$scope', 'Note','Tweetable', function($scope, Note, Tweetable) {
+  Note.all().success(function(data) {
+    $scope.notes = data;
+  });
+   $scope.tweetThatNote = function(description) {
+      Tweetable(description).success(function(data){
+        console.log(data);
+      });
+   };
+}]);
+
+-- html file 
+
+ <button class="btn" ng-click="tweetThatNote(note.description)">Tweet It!</button>
+ 
+ ////////////////////////////////////////////////////////////////////////////////////
+ 3.6 The Configurable Bits 
+ 
+angular.module('NoteWrangler')
+.factory('Tweetable', ['$http', function TweetableFactory($http) {
+    var characterLength=144; // added this 
+  return function(potentialTweet) {
+    return $http({
+      method: 'POST',
+      url: 'http://gentle-spire-1153.herokuapp.com/tweet',
+      data: {
+        description: potentialTweet,
+         maxLength:characterLength, // added this 
+      }
+    });
+  };
+}]);
+////////////////////////////////////////////////////////////////////////////////////
+ 3.7 Providers ( video ) 
+////////////////////////////////////////////////////////////////////////////////////
+3.8  Configurable Bits Need a Providers 
+angular.module('NoteWrangler')
+.provider('Tweetable',function TweetableProvider() {
+  var characterLength = 144;
+  this.setLength=function(length){
+    characterLength=length;
+  };
+  
+  this.$get=function($http){
+    return function(potentialTweet) {
+      return $http({
+        method: 'POST',
+        url: 'http://gentle-spire-1153.herokuapp.com/tweet',
+        data: {
+          description: potentialTweet,
+          maxLength: characterLength
+        }
+      });
+    };
+  };  
+});
+
+////////////////////////////////////////////////////////////////////////////////////
+3.9 Configuring the tweet Length
+
+angular.module('NoteWrangler', ['ngRoute'])
+  .config(function(TweetableProvider){
+  TweetableProvider.setLength(40);
+})
+;
+
+///////////////////////////////////////////////////////////////////////////////////
+3.10    $resource  video 
+
+////////////////////////////////////////////////////////////////////////////////////
+3.11   $resource Refactor 
+--js one file 
+angular.module('NoteWrangler')
+.factory('Note', ['$resource', function NoteFactory($resource) {
+return $resource("/notes", {}, {});
+}]);
+
+
+--js two file 
+angular.module('NoteWrangler', ['ngRoute','ngResource'])
+.config(function(TweetableProvider) {
+  TweetableProvider.setLength(144);
+});
+
+
+-- html
+  <script src="js/vendor/angular-resource.js"></script>
+////////////////////////////////////////////////////////////////////////////////////
+  3.12   Using a $resource-ful Note Service 
+  
+angular.module('NoteWrangler')
+.controller('NotesIndexController', ['$scope', 'Note', 'Tweetable', function($scope, Note, Tweetable) {
+  $scope.notes = Note.query();
+  
+  $scope.tweetThatNote = function(noteToTweet) {
+    Tweetable(noteToTweet).success(function(status) {
+      console.log(status);
+    });
+  };
+}]);
+
+
+////////////////////////////////////////////////////////////////////////////////////
+3.13 A custom method for our Note $resource 
+
+angular.module('NoteWrangler')
+.factory('Note',['$resource', function NoteFactory($resource) {
+  return $resource('/notes', {}, {
+    tweetIt: {
+      method: "PUT"
+    }
+  });
+}]);
+
+
+        
+ 
+ 
+ 
