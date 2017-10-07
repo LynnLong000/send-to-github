@@ -1,0 +1,105 @@
+1.1 wiring together views 
+///////////////////////////////////////////////////////////////////////
+1.2 The beginning of all Routes
+
+--app.js 
+
+angular.module("NoteWrangler",['ngRoute'])
+.config(function($routeProvider){
+  $routeProvider.when('/notes', {
+    templateUrl: 'templates/pages/notes/index.html'
+  });  
+});
+
+-- html 
+
+<div ng-view='notes'></div>
+
+///////////////////////////////////////////////////////////////////////
+1.3 404, Route Not Found
+The __________ method is used to set a route when no other route definition is matched.
+** Otherwise****
+
+///////////////////////////////////////////////////////////////////////
+1.4 A New Route and a Root Route
+
+code i write in app.js
+
+    .when('/notes/new', {
+      templateUrl: 'templates/pages/notes/edit.html'
+    })
+    .when('/', {
+      redirectTo: '/users'
+    })
+    .otherwise({
+      redirectTo: '/notes'
+    })
+    ;
+
+///////////////////////////////////////////////////////////////////////
+1.5  logic in our Routes  -- video
+$http. get post put delete
+
+///////////////////////////////////////////////////////////////////////
+1.6 $http Methods
+What $http method is used for updating existing data?
+$http.put
+
+///////////////////////////////////////////////////////////////////////
+1.7 $http Methods
+What $http method is used for retrieving data?
+$http.get
+
+///////////////////////////////////////////////////////////////////////
+1.8 Llamas in Space 
+
+$http({
+  method: 'POST',
+  url: '/llamas.json',
+  data: newLlamaRecruit
+});
+
+///////////////////////////////////////////////////////////////////////
+1.9 Inside Route Controller
+-- code i made is below 
+
+      controller: function($http) {
+    var controller = this;
+    $http({method: 'GET', url: '/notes'}).success(function(data) {
+      controller.notes = data;
+    });
+  },
+      controllerAs: 'notesCtrl'
+
+
+///////////////////////////////////////////////////////////////////////
+1.10 Outside Controller 
+ inserted code below in .js file 
+        controller: 'NotesCreateController',
+      controllerAs:'note'
+---in html file 
+ <input name="title" ng-model="note.title" />
+
+<textarea name="content" ng-model="note.content"></textarea>
+ <button class="btn" ng-click="newNotesCtrl.saveNote(note)">Save</button>
+
+///////////////////////////////////////////////////////////////////////
+1.11 Getting a note"s id From the URL
+
+We can gain access to the note's id in the following URL: http://example.com/#/notes/42 by injecting the ___ service into the NotesShowController
+***$routeParams
+
+///////////////////////////////////////////////////////////////////////
+1.12  Displaying a Single Note
+
+
+add this code 
+
+function($http,$routeParams) {
+  var controller = this;
+  $http({method:'GET',url:'/notes/' + $routeParams.id})
+  .success(function(data){
+    controller.note = data;
+  });  
+});
+
