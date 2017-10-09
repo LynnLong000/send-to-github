@@ -1,0 +1,10 @@
+// java script in day01 
+
+// just the code I wrote 
+
+    var int = readLine();
+    var double = readLine();
+    var string = readLine();
+
+    console.log(i+Number(int) +"\n"+(Number(double)+d).toFixed(1)+"\n"+s+string);
+    
