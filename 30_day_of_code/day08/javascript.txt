@@ -1,0 +1,35 @@
+// day 8 hacker rank Java script 
+
+function processData(input) {
+    //Enter your code here
+    input = input.split('\n')
+    var N = parseInt(input[0])
+
+    var phoneBook = {};
+    
+    for(var i = 0; i < N; i++){
+        var contact =  input[i+1];
+        contact = contact.split(' ');
+        phoneBook [contact[0]] = contact[1];
+    } 
+    
+    for(var i = N+1; i < input.length; i++){
+        var num = (phoneBook[input[i]])
+        if (num !== undefined){
+            console.log(input[i]+'='+num);
+        } else {
+            console.log('Not found');
+        }
+    }
+} 
+
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+_input = "";
+process.stdin.on("data", function (input) {
+    _input += input;
+});
+
+process.stdin.on("end", function () {
+   processData(_input);
+});
