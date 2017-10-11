@@ -1,0 +1,35 @@
+// day 12 javascript hacker rank  
+
+class Student extends Person {
+    
+
+    constructor(firstName,lastName, identification,scores ){
+        super(firstName,lastName,identification);
+        this.testScores=scores;
+        
+    }
+
+    calculate(){
+        var sum = 0;
+     
+        for(var i=0;i<this.testScores.length;i++){
+            sum=sum+this.testScores[i];
+        }
+        
+        var total = sum / this.testScores.length;
+        
+        if(total<=100 && total>=90){
+            return "O";
+        }else if(total<90 && total>=80){
+            return "E";
+        }else if(total<80 && total>=70){
+            return "A";
+        }else if(total<70 && total>=55){
+            return "P";
+        }else if(total<55 && total>=40){
+            return "D";
+        }else if(total<40){
+            return "T";    
+        }    
+    }
+}
