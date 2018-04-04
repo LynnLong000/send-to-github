@@ -6,3 +6,5 @@ Code is FUn
 Code is great
 
 Code code code 
+
+Doing my best to get back into the code world bare with me.
