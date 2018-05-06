@@ -1,3 +1,6 @@
 some thinking on how to attack a problem on code fights.  image rotatation. 
 
 I heard that 
+
+
+and we begin again.
