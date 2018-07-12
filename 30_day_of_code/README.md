@@ -15,3 +15,6 @@ trying to commit anything as much as possible
 still on the design stage of my problem.
 
 muscle memory
+
+
+get
