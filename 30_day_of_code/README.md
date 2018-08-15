@@ -16,11 +16,4 @@ still on the design stage of my problem.
 
 muscle memory// //  //
 
- ssdcdcs
-get  dcdcdcc c c c c
-
-
-dddd adddd
-SACO cccccccc
-xxxxxx;;;;;;
-
+re do
