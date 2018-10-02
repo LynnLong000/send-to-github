@@ -14,6 +14,4 @@ Laziness is taking over. I need some motivation???
 trying to commit anything as much as possible
 still on the design stage of my problem.
 
-muscle memory// //  //
-
-re dov cgggggggg
+more memory
