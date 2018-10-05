@@ -1,2 +1,3 @@
 I want to start learning how to code more with 
-.net
+ .net  going back to 30 days of code and doing it in C
+ 
