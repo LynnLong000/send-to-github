@@ -8,4 +8,4 @@ I want to start learning how to code more with
  
  after this 30 days of code i'd like to create a web based which will soon be a app
  for practice - can't wait - 
- 
+ here we are 
