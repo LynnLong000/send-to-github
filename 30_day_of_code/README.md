@@ -7,5 +7,5 @@ I want to start learning how to code more with
  Jquery
  
  after this 30 days of code i'd like to create a web based which will soon be a app
- for practice - can't wait -lllolol7777
- here we are 
+
+Nice
