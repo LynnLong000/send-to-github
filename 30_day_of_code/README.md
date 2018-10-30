@@ -7,4 +7,4 @@ I want to start learning how to code more with
  Jquery
  
  after this 30 days of code i'd like to create a web based which will soon be a app
-later on today ge some real work done  
+later on today ge some real work done  v      fff   
