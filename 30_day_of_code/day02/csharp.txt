@@ -33,3 +33,20 @@ class Solution {
         solve(meal_cost, tip_percent, tax_percent);
     }
 }
+
+/*
+
+found a why to make the solve  function one  line code.
+
+    // Complete the solve function below.
+    static void solve(double meal_cost, double tip_percent, double tax_percent) {
+    Console.WriteLine("{0}",Math.Round(meal_cost+(meal_cost*(tip_percent/100))+(meal_cost*(tax_percent/100)))); 
+
+
+    }
+
+
+
+
+
+*/
