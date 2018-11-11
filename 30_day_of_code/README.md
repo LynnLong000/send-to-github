@@ -6,4 +6,4 @@ I want to start learning how to code more with
  JavaScript
  Jquery
  
-lil fuck up 
+working with Csharp
