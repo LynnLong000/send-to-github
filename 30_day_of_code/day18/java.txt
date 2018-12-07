@@ -19,3 +19,6 @@ class Palindrome {
 	        return queue.remove();
 	    }
 }
+
+
+need to fniish 
