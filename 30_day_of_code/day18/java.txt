@@ -20,5 +20,4 @@ class Palindrome {
 	    }
 }
 
-
-need to fniish tomororw 
+idk what this does yet 
