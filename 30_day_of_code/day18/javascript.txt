@@ -1,0 +1,20 @@
+function Solution(){
+  this.stack = [];
+  this.queue = [];
+}
+
+Solution.prototype.pushCharacter = function pushCharacter (char) {
+  this.stack.push(char);
+};
+
+Solution.prototype.enqueueCharacter = function enqueueCharacter (char) {
+  this.queue.push(char);
+};
+
+Solution.prototype.popCharacter = function popCharacter () {
+  return this.stack.pop();
+};
+
+Solution.prototype.dequeueCharacter  = function dequeueCharacter () {
+  return this.queue.shift();
+};
