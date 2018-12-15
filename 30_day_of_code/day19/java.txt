@@ -1,1 +1,12 @@
-will di 
+
+class Calculator implements AdvancedArithmetic {
+    public int divisorSum(int n) {
+    int answer = 0;
+    for(int count = 1; count <= n; count++){
+        if(n % count == 0 ){
+            answer += count;
+        } 
+    }        
+        return answer;
+    }
+}
