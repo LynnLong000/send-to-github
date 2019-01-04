@@ -1,0 +1,13 @@
+public class Calculator : AdvancedArithmetic
+{
+    public int divisorSum(int n)
+    {
+    int answer = 0;
+    for(var count = 1; count <= n; count++){
+        if(n % count == 0 ){
+            answer += count;
+        } 
+    }
+        return answer;
+    }
+}
