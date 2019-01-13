@@ -1,0 +1,17 @@
+private static int getHeight(Node root){
+        int left = 0, right = 0;
+        if (root == null) {
+            return -1;
+        }
+        
+        
+        
+        
+        left = getHeight(root.left) + 1;
+        right = getHeight(root.right) + 1;
+        if (left > right) {
+            return left;
+        } else {
+            return right;
+        }
+}
