@@ -1,0 +1,4 @@
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE SUBSTR(CITY,LENGTH(0),LENGTH(0)) IN ('a','i','e','o','u')
+AND SUBSTR(CITY,LENGTH(city),LENGTH(city)) IN ('a','i','e','o','u')                                   
