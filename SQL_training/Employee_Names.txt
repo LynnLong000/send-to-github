@@ -1,8 +1,5 @@
 /*
-Enter your query here.
-
-ccecceece
-
+Query below
 */
 
 SELECT NAME 
