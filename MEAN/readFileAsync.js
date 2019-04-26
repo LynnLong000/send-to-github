@@ -8,3 +8,5 @@ fs.readFile('readFileSync.js', function(err,file){
 
 
 console.log("App continuess....")
+
+// her e
